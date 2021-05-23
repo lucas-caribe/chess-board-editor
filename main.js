@@ -1,5 +1,6 @@
-let board = document.querySelector('.board');
-let selectors = document.querySelectorAll('.selector');
+const board = document.querySelector('.board');
+const selectors = document.querySelectorAll('.selector');
+const checkButton = document.querySelector('#check-attack');
 
 let selectedPiece;
 let placedWhitePiece = { x: -1, y: -1, type: '' };
@@ -16,9 +17,22 @@ for (let i = 0; i < 8; i++) {
 }
 
 function clearBoard() {
-  let squares = document.querySelectorAll('.square');
+  const squares = document.querySelectorAll('.square');
 
-  squares.forEach((square) => square.removeAttribute('piece'));
+  squares.forEach((square) => {
+    square.removeAttribute('piece');
+    square.removeAttribute('highlighted');
+    square.removeAttribute('target');
+  });
+}
+
+function clearHighlights() {
+  const squares = document.querySelectorAll('.square');
+
+  squares.forEach((square) => {
+    square.removeAttribute('highlighted');
+    square.removeAttribute('target');
+  });
 }
 
 function getSquare(x, y) {
@@ -26,28 +40,46 @@ function getSquare(x, y) {
 }
 
 function getPosition(square) {
-  let x = square.dataset.x;
-  let y = square.dataset.y;
+  const x = square.dataset.x;
+  const y = square.dataset.y;
 
   return { x, y };
 }
 
+function getPieceXPosition(piece) {
+  return Number(piece.x);
+}
+
+function getPieceYPosition(piece) {
+  return Number(piece.y);
+}
+
 function removePiece(x, y) {
-  let square = getSquare(x, y);
+  const square = getSquare(x, y);
 
   square.removeAttribute('piece');
 }
 
+function checkPlacedWhitePiece() {
+  return placedWhitePiece.type !== '';
+}
+
+function checkPlacedBlackPiece() {
+  return placedBlackPiece.type !== '';
+}
+
 function setPiece(piece, destination) {
-  let { x, y } = getPosition(destination);
+  const { x, y } = getPosition(destination);
 
   if (/white*/.test(piece)) {
-    if (placedWhitePiece.type !== '')
+    if (checkPlacedWhitePiece()) {
+      clearHighlights();
       removePiece(placedWhitePiece.x, placedWhitePiece.y);
+    }
 
     placedWhitePiece = { x, y, type: piece };
   } else {
-    if (placedBlackPiece.type !== '')
+    if (checkPlacedBlackPiece())
       removePiece(placedBlackPiece.x, placedBlackPiece.y);
 
     placedBlackPiece = { x, y, type: piece };
@@ -56,21 +88,23 @@ function setPiece(piece, destination) {
   if (destination) destination.setAttribute('piece', piece);
 }
 
+// board events
 board.addEventListener('click', (event) => {
-  let targetX = event.target.getAttribute('data-x');
-  let targetY = event.target.getAttribute('data-y');
+  const targetX = event.target.getAttribute('data-x');
+  const targetY = event.target.getAttribute('data-y');
 
   if (!selectedPiece) return;
 
-  let destination = getSquare(targetX, targetY);
+  const destination = getSquare(targetX, targetY);
 
   setPiece(selectedPiece, destination);
 });
 
+// selector events
 selectors.forEach((selector) => {
   selector.addEventListener('click', (event) => {
-    let target = event.target;
-    let previousSelected = document.querySelector('.selector > *[selected]');
+    const target = event.target;
+    const previousSelected = document.querySelector('.selector > *[selected]');
 
     if (target.getAttribute('trash') !== null) {
       clearBoard();
@@ -87,4 +121,31 @@ selectors.forEach((selector) => {
 
     selectedPiece = target.getAttribute('piece');
   });
+});
+
+// button events
+checkButton.addEventListener('click', (event) => {
+  let attackedSquares = [];
+
+  if (checkPlacedBlackPiece() && checkPlacedWhitePiece()) {
+    switch (placedWhitePiece.type) {
+      case 'white-knight':
+        attackedSquares = checkKnight(
+          getPieceXPosition(placedWhitePiece),
+          getPieceYPosition(placedWhitePiece),
+          getPieceXPosition(placedBlackPiece),
+          getPieceYPosition(placedBlackPiece)
+        );
+        break;
+    }
+  }
+
+  if (attackedSquares.length > 0) {
+    attackedSquares.forEach((attackedSquare) => {
+      const square = getSquare(attackedSquare.x, attackedSquare.y);
+
+      if (attackedSquare.hit) square.setAttribute('target', '');
+      else square.setAttribute('highlighted', '');
+    });
+  }
 });
