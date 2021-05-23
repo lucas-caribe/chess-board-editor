@@ -73,6 +73,10 @@ function checkPlacedBlackPiece() {
   return placedBlackPiece.type !== '';
 }
 
+function samePosition(whitePiece, blackPiece) {
+  return whitePiece.x === blackPiece.x && whitePiece.y === blackPiece.y;
+}
+
 function setPiece(piece, destination) {
   const { x, y } = getPosition(destination);
 
@@ -83,6 +87,10 @@ function setPiece(piece, destination) {
     }
 
     placedWhitePiece = { x, y, type: piece };
+
+    if (samePosition(placedWhitePiece, placedBlackPiece)) {
+      removePiece(placedBlackPiece);
+    }
   } else {
     if (checkPlacedBlackPiece()) {
       clearHighlights();
@@ -90,6 +98,10 @@ function setPiece(piece, destination) {
     }
 
     placedBlackPiece = { x, y, type: piece };
+
+    if (samePosition(placedWhitePiece, placedBlackPiece)) {
+      removePiece(placedWhitePiece);
+    }
   }
 
   if (destination) destination.setAttribute('piece', piece);
