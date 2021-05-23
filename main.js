@@ -1,6 +1,8 @@
 let board = document.querySelector(".board");
 let selectors = document.querySelectorAll(".selector");
 let selectedPiece;
+let placedWhitePiece = { x: -1, y: -1, type: '' };
+let placedBlackPiece = { x: -1, y: -1, type: '' };
 
 // board generator
 for (let i = 0; i < 8; i++) {
@@ -18,11 +20,36 @@ function clearBoard() {
 	squares.forEach((square) => square.removeAttribute("piece"));
 }
 
-function getDestination(x, y) {
+function getSquare(x, y) {
 	return document.querySelector(`[data-x='${x}'][data-y='${y}']`);
 }
 
+function getPosition(square) {
+	let x = square.dataset.x;
+	let y = square.dataset.y;
+
+	return { x, y };
+}
+
+function removePiece(x, y) {
+	let square = getSquare(x, y);
+
+	square.removeAttribute('piece');
+}
+
 function setPiece(piece, destination) {
+	let { x, y } = getPosition(destination);
+
+	if(/white*/.test(piece)) {
+		if(placedWhitePiece.type !== '') removePiece(placedWhitePiece.x, placedWhitePiece.y);
+
+		placedWhitePiece = { x, y, type: piece };
+	} else {
+		if(placedBlackPiece.type !== '') removePiece(placedBlackPiece.x, placedBlackPiece.y);
+
+		placedBlackPiece = { x, y, type: piece };
+	}
+
 	if (destination) destination.setAttribute("piece", piece);
 }
 
@@ -32,7 +59,7 @@ board.addEventListener("click", (event) => {
 
 	if (!selectedPiece) return;
 
-	let destination = getDestination(targetX, targetY);
+	let destination = getSquare(targetX, targetY);
 
 	setPiece(selectedPiece, destination);
 });
