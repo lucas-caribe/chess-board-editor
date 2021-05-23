@@ -79,8 +79,10 @@ function setPiece(piece, destination) {
 
     placedWhitePiece = { x, y, type: piece };
   } else {
-    if (checkPlacedBlackPiece())
+    if (checkPlacedBlackPiece()) {
+      clearHighlights();
       removePiece(placedBlackPiece.x, placedBlackPiece.y);
+    }
 
     placedBlackPiece = { x, y, type: piece };
   }
@@ -128,14 +130,19 @@ checkButton.addEventListener('click', (event) => {
   let attackedSquares = [];
 
   if (checkPlacedBlackPiece() && checkPlacedWhitePiece()) {
+    const piecesPositions = {
+      whiteX: getPieceXPosition(placedWhitePiece),
+      whiteY: getPieceYPosition(placedWhitePiece),
+      blackX: getPieceXPosition(placedBlackPiece),
+      blackY: getPieceYPosition(placedBlackPiece),
+    };
+
     switch (placedWhitePiece.type) {
       case 'white-knight':
-        attackedSquares = checkKnight(
-          getPieceXPosition(placedWhitePiece),
-          getPieceYPosition(placedWhitePiece),
-          getPieceXPosition(placedBlackPiece),
-          getPieceYPosition(placedBlackPiece)
-        );
+        attackedSquares = checkKnight(piecesPositions);
+        break;
+      case 'white-pawn':
+        attackedSquares = checkPawn(piecesPositions);
         break;
     }
   }
