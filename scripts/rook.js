@@ -1,12 +1,12 @@
 // (x, y) from 0 to 7
 let rookPos = {
-	x: Math.floor(Math.random() * 8),
-	y: Math.floor(Math.random() * 8),
+  x: Math.floor(Math.random() * 8),
+  y: Math.floor(Math.random() * 8),
 };
 
 let opponentPos = {
-	x: Math.floor(Math.random() * 8),
-	y: Math.floor(Math.random() * 8),
+  x: Math.floor(Math.random() * 8),
+  y: Math.floor(Math.random() * 8),
 };
 
 let canCapture = false;
@@ -17,7 +17,7 @@ console.log(`
 `);
 
 if (rookPos.x === opponentPos.x || rookPos.y === opponentPos.y) {
-	canCapture = true;
+  canCapture = true;
 }
 
 console.log(`Can the rook capture the opponent's piece? ${canCapture}`);
