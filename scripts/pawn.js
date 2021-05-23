@@ -1,4 +1,4 @@
-function checkPawn({ whiteX, whiteY, blackX, blackY }) {
+function pawnCheck({ whiteX, whiteY, blackX, blackY }) {
   let squares = [];
 
   let pawnCaptureX = [-1, -1];

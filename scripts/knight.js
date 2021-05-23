@@ -1,4 +1,4 @@
-function checkKnight({ whiteX, whiteY, blackX, blackY }) {
+function knightCheck({ whiteX, whiteY, blackX, blackY }) {
   let squares = [];
 
   let knightCaptureX = [-1, -2, -2, -1, 1, 2, 2, 1];

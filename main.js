@@ -156,10 +156,10 @@ checkButton.addEventListener('click', (event) => {
 
     switch (placedWhitePiece.type) {
       case 'white-knight':
-        attackedSquares = checkKnight(piecesPositions);
+        attackedSquares = knightCheck(piecesPositions);
         break;
       case 'white-pawn':
-        attackedSquares = checkPawn(piecesPositions);
+        attackedSquares = pawnCheck(piecesPositions);
         break;
     }
   }
