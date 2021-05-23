@@ -19,6 +19,8 @@ for (let i = 0; i < 8; i++) {
 function clearBoard() {
   const squares = document.querySelectorAll('.square');
 
+  placedWhitePiece = placedBlackPiece = { x: -1, y: -1, type: '' };
+
   squares.forEach((square) => {
     square.removeAttribute('piece');
     square.removeAttribute('highlighted');
@@ -54,8 +56,11 @@ function getPieceYPosition(piece) {
   return Number(piece.y);
 }
 
-function removePiece(x, y) {
+function removePiece({ x, y, type }) {
   const square = getSquare(x, y);
+
+  if (/white*/.test(type)) placedWhitePiece = { x: -1, y: -1, type: '' };
+  else placedBlackPiece = { x: -1, y: -1, type: '' };
 
   square.removeAttribute('piece');
 }
@@ -74,14 +79,14 @@ function setPiece(piece, destination) {
   if (/white*/.test(piece)) {
     if (checkPlacedWhitePiece()) {
       clearHighlights();
-      removePiece(placedWhitePiece.x, placedWhitePiece.y);
+      removePiece(placedWhitePiece);
     }
 
     placedWhitePiece = { x, y, type: piece };
   } else {
     if (checkPlacedBlackPiece()) {
       clearHighlights();
-      removePiece(placedBlackPiece.x, placedBlackPiece.y);
+      removePiece(placedBlackPiece);
     }
 
     placedBlackPiece = { x, y, type: piece };
