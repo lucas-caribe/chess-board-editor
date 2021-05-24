@@ -1,28 +1,46 @@
-// (x, y) from 0 to 7
-let bishopPos = {
-  x: Math.floor(Math.random() * 8),
-  y: Math.floor(Math.random() * 8),
-};
+function bishopCheck({ whiteX, whiteY, blackX, blackY }) {
+  let squares = [];
+  let startingX, startingY;
 
-let opponentPos = {
-  x: Math.floor(Math.random() * 8),
-  y: Math.floor(Math.random() * 8),
-};
+  // top-left
+  startingX = whiteX - 1;
+  startingY = whiteY - 1;
 
-let canCapture = false;
+  for (let x = startingX, y = startingY; x >= 0 && y >= 0; x--, y--) {
+    let hit = x === blackX && y === blackY;
 
-console.log(`
-    Bishop's position: ${bishopPos.x}, ${bishopPos.y} 
-    Opponent's position: ${opponentPos.x}, ${opponentPos.y}
-`);
+    squares.push({ x, y, hit });
+  }
 
-let diff = {
-  x: Math.abs(bishopPos.x - opponentPos.x),
-  y: Math.abs(bishopPos.y - opponentPos.y),
-};
+  // top-right
+  startingX = whiteX - 1;
+  startingY = whiteY + 1;
 
-if (diff.x === diff.y) {
-  canCapture = true;
+  for (let x = startingX, y = startingY; x >= 0 && y < 8; x--, y++) {
+    let hit = x === blackX && y === blackY;
+
+    squares.push({ x, y, hit });
+  }
+
+  // bottom-right
+  startingX = whiteX + 1;
+  startingY = whiteY + 1;
+
+  for (let x = startingX, y = startingY; x < 8 && y < 8; x++, y++) {
+    let hit = x === blackX && y === blackY;
+
+    squares.push({ x, y, hit });
+  }
+
+  // bottom-left
+  startingX = whiteX + 1;
+  startingY = whiteY - 1;
+
+  for (let x = startingX, y = startingY; x < 8 && y >= 0; x++, y--) {
+    let hit = x === blackX && y === blackY;
+
+    squares.push({ x, y, hit });
+  }
+
+  return squares;
 }
-
-console.log(`Can the bishop capture the opponent's piece? ${canCapture}`);
