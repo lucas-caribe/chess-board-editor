@@ -9,10 +9,9 @@ let placedBlackPiece = { x: -1, y: -1, type: '' };
 // board generator
 for (let i = 0; i < 8; i++) {
   for (let j = 0; j < 8; j++) {
-    if ((i + j) % 2 === 0)
-      board.innerHTML += `<div class="square light" data-x="${i}" data-y="${j}"></div>`;
-    else
-      board.innerHTML += `<div class="square dark" data-x="${i}" data-y="${j}"></div>`;
+    let color = (i + j) % 2 === 0 ? 'light' : 'dark';
+
+    board.innerHTML += `<div class="square ${color}" data-x="${i}" data-y="${j}"></div>`;
   }
 }
 
