@@ -1,23 +1,46 @@
-// (x, y) from 0 to 7
-let rookPos = {
-  x: Math.floor(Math.random() * 8),
-  y: Math.floor(Math.random() * 8),
-};
+function rookCheck({ whiteX, whiteY, blackX, blackY }) {
+  let squares = [];
+  let startingX, startingY;
 
-let opponentPos = {
-  x: Math.floor(Math.random() * 8),
-  y: Math.floor(Math.random() * 8),
-};
+  // left
+  startingX = whiteX;
+  startingY = whiteY - 1;
 
-let canCapture = false;
+  for (let x = startingX, y = startingY; y >= 0; y--) {
+    let hit = x === blackX && y === blackY;
 
-console.log(`
-    Rook's position: ${rookPos.x}, ${rookPos.y} 
-    Opponent's position: ${opponentPos.x}, ${opponentPos.y}
-`);
+    squares.push({ x, y, hit });
+  }
 
-if (rookPos.x === opponentPos.x || rookPos.y === opponentPos.y) {
-  canCapture = true;
+  // top
+  startingX = whiteX - 1;
+  startingY = whiteY;
+
+  for (let x = startingX, y = startingY; x >= 0; x--) {
+    let hit = x === blackX && y === blackY;
+
+    squares.push({ x, y, hit });
+  }
+
+  // right
+  startingX = whiteX;
+  startingY = whiteY + 1;
+
+  for (let x = startingX, y = startingY; y < 8; y++) {
+    let hit = x === blackX && y === blackY;
+
+    squares.push({ x, y, hit });
+  }
+
+  // bottom
+  startingX = whiteX + 1;
+  startingY = whiteY;
+
+  for (let x = startingX, y = startingY; x < 8; x++) {
+    let hit = x === blackX && y === blackY;
+
+    squares.push({ x, y, hit });
+  }
+
+  return squares;
 }
-
-console.log(`Can the rook capture the opponent's piece? ${canCapture}`);

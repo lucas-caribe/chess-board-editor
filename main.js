@@ -163,6 +163,12 @@ checkButton.addEventListener('click', (event) => {
       case 'white-bishop':
         attackedSquares = bishopCheck(piecesPositions);
         break;
+      case 'white-rook':
+        attackedSquares = rookCheck(piecesPositions);
+        break;
+      case 'white-queen':
+        attackedSquares = queenCheck(piecesPositions);
+        break;
     }
   }
 
