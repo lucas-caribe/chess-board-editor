@@ -213,12 +213,12 @@ main {
   user-select: none;
 }
 
-.button:hover {
+.button[enabled]:hover {
   background: linear-gradient(to bottom, #44413b, #3b3935 100%);
   color: #ccc;
 }
 
-.button:active {
+.button[enabled]:active {
   box-shadow: 0 0 12px #999;
   background: #d64f00;
   color: #fff;
