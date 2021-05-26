@@ -64,19 +64,24 @@ main {
   background: #b58863;
 }
 
-.square[highlighted]::before, .square[target]::before {
-	position: absolute;
-	content: '';
-	width: 100%;
-	height: 100%;
+.square[highlighted]::before,
+.square[target]::before {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 100%;
 }
 
 .square[highlighted]::before {
-	background: radial-gradient(rgba(20,85,30,0.5) 19%, rgba(0,0,0,0) 20%);
+  background: radial-gradient(rgba(20, 85, 30, 0.5) 19%, rgba(0, 0, 0, 0) 20%);
 }
 
 .square[target]::before {
-	background: radial-gradient(transparent 0%, transparent 79%, rgba(20,85,0,0.3) 80%);
+  background: radial-gradient(
+    transparent 0%,
+    transparent 79%,
+    rgba(20, 85, 0, 0.3) 80%
+  );
 }
 
 /* pieces */
@@ -196,28 +201,28 @@ main {
 }
 
 .button {
-	background: linear-gradient(to bottom, #3c3934, #33312e 100%);
-	color: #999;
-	width: 15em;
+  background: linear-gradient(to bottom, #3c3934, #33312e 100%);
+  color: #999;
+  width: 15em;
   height: 3.5em;
-	margin: .5em 0;
-	text-align: center;
-	padding: 1em 0;
-	border-radius: 4px;
-	cursor: pointer;
-	user-select: none;
+  margin: 0.5em 0;
+  text-align: center;
+  padding: 1em 0;
+  border-radius: 4px;
+  cursor: pointer;
+  user-select: none;
 }
 
 .button:hover {
-	background: linear-gradient(to bottom, #44413b, #3b3935 100%);
-	color: #ccc;
+  background: linear-gradient(to bottom, #44413b, #3b3935 100%);
+  color: #ccc;
 }
 
 .button:active {
-	box-shadow: 0 0 12px #999;
-	background: #d64f00;
-	color: #fff;
-	text-shadow: 0 1px 1px black !important;
+  box-shadow: 0 0 12px #999;
+  background: #d64f00;
+  color: #fff;
+  text-shadow: 0 1px 1px black !important;
 }
 
 /* instructions */
@@ -235,5 +240,5 @@ main {
 
 .instructions h3 {
   text-align: center;
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
 }
