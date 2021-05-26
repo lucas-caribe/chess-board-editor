@@ -51,6 +51,11 @@ main {
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.39);
 }
 
+.square {
+  overflow: hidden;
+  position: relative;
+}
+
 .light {
   background: #f0d9b5;
 }
@@ -59,12 +64,19 @@ main {
   background: #b58863;
 }
 
-.square[highlighted] {
-  box-shadow: inset 0 0 14px green;
+.square[highlighted]::before, .square[target]::before {
+	position: absolute;
+	content: '';
+	width: 100%;
+	height: 100%;
 }
 
-.square[target] {
-  box-shadow: inset 0 0 14px red;
+.square[highlighted]::before {
+	background: radial-gradient(rgba(20,85,30,0.5) 19%, rgba(0,0,0,0) 20%);
+}
+
+.square[target]::before {
+	background: radial-gradient(transparent 0%, transparent 79%, rgba(20,85,0,0.3) 80%);
 }
 
 /* pieces */
