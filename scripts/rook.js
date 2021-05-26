@@ -10,6 +10,8 @@ function rookCheck({ whiteX, whiteY, blackX, blackY }) {
     let hit = x === blackX && y === blackY;
 
     squares.push({ x, y, hit });
+
+    if (hit) break;
   }
 
   // top
@@ -20,6 +22,8 @@ function rookCheck({ whiteX, whiteY, blackX, blackY }) {
     let hit = x === blackX && y === blackY;
 
     squares.push({ x, y, hit });
+
+    if (hit) break;
   }
 
   // right
@@ -30,6 +34,8 @@ function rookCheck({ whiteX, whiteY, blackX, blackY }) {
     let hit = x === blackX && y === blackY;
 
     squares.push({ x, y, hit });
+
+    if (hit) break;
   }
 
   // bottom
@@ -40,6 +46,8 @@ function rookCheck({ whiteX, whiteY, blackX, blackY }) {
     let hit = x === blackX && y === blackY;
 
     squares.push({ x, y, hit });
+
+    if (hit) break;
   }
 
   return squares;

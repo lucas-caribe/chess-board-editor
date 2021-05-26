@@ -10,6 +10,8 @@ function bishopCheck({ whiteX, whiteY, blackX, blackY }) {
     let hit = x === blackX && y === blackY;
 
     squares.push({ x, y, hit });
+
+    if (hit) break;
   }
 
   // top-right
@@ -20,6 +22,8 @@ function bishopCheck({ whiteX, whiteY, blackX, blackY }) {
     let hit = x === blackX && y === blackY;
 
     squares.push({ x, y, hit });
+
+    if (hit) break;
   }
 
   // bottom-right
@@ -30,6 +34,8 @@ function bishopCheck({ whiteX, whiteY, blackX, blackY }) {
     let hit = x === blackX && y === blackY;
 
     squares.push({ x, y, hit });
+
+    if (hit) break;
   }
 
   // bottom-left
@@ -40,6 +46,8 @@ function bishopCheck({ whiteX, whiteY, blackX, blackY }) {
     let hit = x === blackX && y === blackY;
 
     squares.push({ x, y, hit });
+
+    if (hit) break;
   }
 
   return squares;
